@@ -1,0 +1,24 @@
+useful commands:
+where python
+pip list
+deactivate (deactivate virtual env)
+rmdir project_env /s
+pip list --local
+
+IN CMD
+python -m venv project_name\venv
+project\Scripts\activate.bat or source project\Scripts\activate
+
+CREATE REQUIREMENTS.TXT
+pip install requests
+pip install {requirements}
+pip list
+
+pip  freeze > rerquirements.txt
+or copy and manual copy/paste it
+
+CREATE VENV WITH REQUIREMENTS
+pip install -r requirements.txt
+
+
+
