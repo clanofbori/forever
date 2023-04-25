@@ -25,7 +25,9 @@
     }
     </style>
     <li><a href="{% url 'article-detail' post.pk %}">
-        {{ post.title }}</a> - {{ post.author.first_name }}
+        {{ post.title }}</a> 
+        - {{ post.category }}
+        - {{ post.author.first_name }}
         {% if user.is_authenticated %}
         - <small><a href="{% url 'update_post' post.pk %}">Edit</a></small>
         - <small><a href="{% url 'delete_post' post.pk %}" style="color:red">Delete</a> -
