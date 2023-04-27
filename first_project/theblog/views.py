@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from . models import Post, Categories
 from .forms import PostForm
@@ -9,6 +9,12 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     ordering = ['-post_date']
+
+
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats.title().replace('-', ' '))
+    return render(request, 'categories.html', {'cats':cats.title().replace('-',' '),
+        'category_posts':category_posts})
 
 
 class ArticleDetailView(DetailView):

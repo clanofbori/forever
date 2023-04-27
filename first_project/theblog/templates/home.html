@@ -26,7 +26,7 @@
     </style>
     <li><a href="{% url 'article-detail' post.pk %}">
         {{ post.title }}</a> 
-        - {{ post.category }}
+        - <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a>
         - {{ post.author.first_name }}
         {% if user.is_authenticated %}
         - <small><a href="{% url 'update_post' post.pk %}">Edit</a></small>
