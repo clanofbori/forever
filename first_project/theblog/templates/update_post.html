@@ -2,19 +2,23 @@
 {% block title %}Edit Blog Post{% endblock %}
 {% block content %}
 
-{% if user.is_authenticated %}
-<h1>Edit Blog Post</h1>
-<br/><br/>
+    {% if user.is_authenticated %}
+        {% if user.id == post.author.id or user.id == 1 %}
+            <h1>Edit Blog Post</h1>
+            <br/><br/>
 
-<div class="mb-3">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
-        <small><a href="{% url 'delete_post' post.pk %}" style="color:red">Delete</a></small>
-    </form>
-</div>
-{% else %}
-    ACCESS DENIED
-{% endif %}
+            <div class="mb-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <small><a href="{% url 'delete_post' post.pk %}" style="color:red">Delete</a></small>
+                </form>
+            </div>
+        {% else %}
+            <a class="nav-link" href="{% url 'login' %}"style="color:blue">Login</a>
+        {% endif %}
+    {% else %}
+        <a class="nav-link" href="{% url 'login' %}"style="color:blue">Login</a>
+    {% endif %}
 {% endblock %}

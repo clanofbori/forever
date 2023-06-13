@@ -3,24 +3,46 @@
 
 {% block content %}
 
-<h1>{{ post.title }}</h1>
-<small>By: 
-    {{ post.author.first_name }} -
-    - <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a>
-    {{ post.post_date}} -
-    <a href="{% url 'update_post' post.pk %}">Edit</a>
+    <h1>{{ post.title }}</h1>
+    <small>By: 
+        {{ post.author.first_name }} -
+        - <a href="{% url 'category' post.category|slugify %}">{{ post.category }}
+        </a>
+        {{ post.post_date}}
 
-    <a href="{% url 'delete_post' post.pk %}">Delete</a>
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id or user.id == 1 %}
+            - <a href="{% url 'update_post' post.pk %}">Edit</a>
 
-</small>
-<hr>
-<br/>
-{{ post.body|safe }}
+            <a href="{% url 'delete_post' post.pk %}">Delete</a>
+            {% endif %}
+        {% endif %}
 
-<br/>
-<br/>
-<a href="{% url 'home' %}" class="btn btn-outline-secondary">
-    Back</a>
+    </small>
+    <hr>
+    <br/>
+    {{ post.body|safe }}
 
+    <br/>
+    <br/>
+    <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+        Back</a>
+    <br/><br/>
+    <hr>
+    <br/>
+    <p>likes: 
+    {% if post.likes == 'auth.User.None' %}
+        0
+    {% else %}
+        {{ post.likes}}
+    {% endif %}
+    </p>
+    <form action="{% url 'like_post' post.pk %}"
+    method="POST">
+        {% csrf_token %}
+        <button type="submit", name="post_id", value="{{ post.id }}",
+        class="btn btn-primary btn-small">Like</button> - {{ total_likes }}
+        Likes
+    </form>
 
 {% endblock %}
