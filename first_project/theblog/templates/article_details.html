@@ -30,19 +30,26 @@
     <br/><br/>
     <hr>
     <br/>
-    <p>likes: 
-    {% if post.likes == 'auth.User.None' %}
-        0
-    {% else %}
-        {{ post.likes}}
-    {% endif %}
-    </p>
+
     <form action="{% url 'like_post' post.pk %}"
     method="POST">
         {% csrf_token %}
-        <button type="submit", name="post_id", value="{{ post.id }}",
-        class="btn btn-primary btn-small">Like</button> - {{ total_likes }}
-        Likes
+
+        {% if user.is_authenticated %}
+            {% if liked %}
+                <button type="submit", name="post_id", value="{{ post.id }}",
+                class="btn btn-danger btn-small">Unlike</button>
+                Likes
+            {% else %}
+                <button type="submit", name="post_id", value="{{ post.id }}",
+                class="btn btn-primary btn-small">Like</button>
+                Likes
+
+            {% endif %}
+        {% else %}
+        <small><a href="{% url 'login' %}">Login</a> to Like</small>
+        {% endif %}
+        - {{ total_likes }}
     </form>
 
 {% endblock %}
