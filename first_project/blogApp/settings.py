@@ -16,6 +16,11 @@ from os import path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# settings.py
+FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.MemoryFileUploadHandler", "django.core.files.uploadhandler.TemporaryFileUploadHandler"]
+DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # Adjust this value as needed (default is 2.5MB)
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -122,11 +127,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = path.join(BASE_DIR, 'media')
-
 STATICFILES_DIRS = (
     path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_ROOT = path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'

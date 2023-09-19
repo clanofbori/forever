@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from datetime import date, datetime
+from datetime import date
 from ckeditor.fields import RichTextField
 
 
@@ -15,16 +15,32 @@ class Categories(models.Model):
         return reverse('home')
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio = models.TextField()
+    profile_pic = models.ImageField(null=True, blank=True,
+                                    upload_to="theblog/media/images/profile")
+    website_url = models.CharField(max_length=255, null=True, blank=True)
+    instagram_url = models.CharField(max_length=255, null=True, blank=True)
+    facebook_url = models.CharField(max_length=255, null=True, blank=True)
+    twitter_url = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Post(models.Model):
-    title = models.CharField(max_length=255)
-    title_tag =models.CharField(max_length=255, default="Bori's Blog")
-    header_image = models.ImageField(null=True, blank=True, upload_to="images/")
-    meta_tag =models.CharField(max_length=255, default="bori_blog")
+    title = models.CharField(max_length=255, null=True, blank=True)
+    title_tag =models.CharField(max_length=255, blank=True)
+    header_image = models.ImageField(null=True, blank=True,
+                                     upload_to="theblog/media/images/uploads/")
+    image_description = models.CharField(max_length=255, null=True, blank=True)
+    meta_tag =models.CharField(max_length=255, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default='uncategorized')
-    snippet = models.CharField(max_length=255)
+    snippet = models.CharField(max_length=255, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name='blog_posts')
 
     def total_likes(self):
@@ -35,3 +51,13 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to="theblog/media/images/uploads/")
+    title = models.CharField(max_length=255, null=True, blank=True)
+    title_tag =models.CharField(max_length=255, blank=True)
+    image_description = models.CharField(max_length=255, null=True, blank=True)
+    meta_tag =models.CharField(max_length=255, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    post_date = models.DateField(auto_now_add=True)

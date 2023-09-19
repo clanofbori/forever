@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Photo Gallery{% endblock %}
+
+{% block content %}
+
+    <h1>Photo Gallery</h1>
+
+    <body>
+        <div class="col-md-9">
+            <div class="row">
+                {% for photo in photos %}
+                <div class="col-md-4">
+                    <div class="card my-2">
+                        <img class="image-thumbnail" src="{{photo.image.url}}">
+                        <div class="card-body">
+                            <small> Category: Photo</small>
+                        </div>
+                        <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                    </div>
+                </div>
+                {% empty %}
+                    <small>Gallery is Empty</small>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

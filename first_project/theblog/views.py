@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from . models import Post, Categories
-from .forms import PostForm
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from .models import Post, Categories, Photo
+from .forms import PostForm, ImageUploadForm
 
 
-def LikeView(request, pk):
+def likeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     liked = False
     if post.likes.filter(id=request.user.id).exists():
@@ -30,13 +30,33 @@ class HomeView(ListView):
         context["cat_menu"] = cat_menu
         return context
 
-def CategoryListView(request):
+def categoryListView(request):
     cat_menu_list = Categories.objects.all()
     return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
 
-def CategoryView(request, cats):
+def categoryView(request, cats):
     category_posts = Post.objects.filter(category=cats)
     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
+
+def galleryView(request):
+    photos = Photo.objects.all()
+    context = {'photos': photos}
+    return render (request, 'gallery.html', context)
+
+def photoView(request, pk):
+    photo = Photo.objects.get(id=pk)
+    return render(request, 'photo.html', {'photo':photo})
+
+
+class ImageUploadView(FormView):
+    template_name = 'post_photos.html'
+    form_class = ImageUploadForm
+    success_url = reverse_lazy('gallery')
+
+    def form_valid(self, form):
+        for image in self.request.FILES.getlist('image'):
+            Photo.objects.create(image=image)
+        return super().form_valid(form)
 
 
 class ArticleDetailView(DetailView):
