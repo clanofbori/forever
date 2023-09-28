@@ -16,6 +16,9 @@
                             <small> Category: Photo</small>
                         </div>
                         <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                        {% if user.is_authenticated %}
+                            <small><a href="{% url 'delete_photo' photo.pk %}">Delete</a></small>
+                        {% endif %}
                     </div>
                 </div>
                 {% empty %}

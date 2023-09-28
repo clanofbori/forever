@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView, View
 from .models import Post, Categories, Photo
 from .forms import PostForm, ImageUploadForm
 
@@ -101,3 +101,10 @@ class DeletePostView(DeleteView):
     model = Post
     template_name = 'delete_post.html'
     success_url = reverse_lazy('home')
+
+
+class DeletePhotoView(DeleteView):
+    model = Photo
+    template_name = 'delete_photo.html'
+    success_url = reverse_lazy('gallery')
+

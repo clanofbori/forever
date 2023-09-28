@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Delete Photo{% endblock %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+        <h1>Delete Photo</h1>
+        <br/><br/>
+        <h3>Delete:</h3>
+        <img class="image-thumbnail" src="{{ photo.image.url }}">
+        {{ photo.image.name }}
+
+        <br/>
+        <div class="mb-3">
+            <form method="POST">
+                {% csrf_token %}
+                <button class="btn btn-secondary">Delete</button>
+            </form>
+        </div>
+    {% else %}
+        <a class="nav-link" href="{% url 'login' %}"style="color:blue">Login</a>
+
+    {% endif %}
+{% endblock %}
