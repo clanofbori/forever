@@ -16,30 +16,19 @@ from os import path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# settings.py
-FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.MemoryFileUploadHandler", "django.core.files.uploadhandler.TemporaryFileUploadHandler"]
-DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # Adjust this value as needed (default is 2.5MB)
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'apples-donkey-=kuxrm(q6s0f3(u@54$)_2rsm26s$57skb5w$s-yvrpd2+e#)c'
+SECRET_KEY = 'django-insecure-=kuxrm(p6s0f4(u@54$)_2rsm26s$57skb5w$s-yvrpd2+e#)b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #These settings have been set to true for production
-#current domain name and ip 
-SECURE_HSTS_SECONDS = 31536000
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_HSTS_PRELOAD = True
-ALLOWED_HOSTS = ['193.203.167.64', 'samuelandstephanieforver.com']
+#current domain name and ip
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -92,12 +81,8 @@ WSGI_APPLICATION = 'blogApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_base_db1',
-        'USER': 'djangouser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
