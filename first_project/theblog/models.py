@@ -5,9 +5,6 @@ from datetime import date
 from ckeditor.fields import RichTextField
 
 
-
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
@@ -30,6 +27,6 @@ class Photo(models.Model):
     meta_tag =models.CharField(max_length=255, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     post_date = models.DateField(auto_now_add=True)
-    
+
     def get_absolute_url(self):
         return reverse('gallery')

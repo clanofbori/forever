@@ -1,20 +1,14 @@
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView, View
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DeleteView, FormView
 from .models import Photo
 from .forms import ImageUploadForm
-
-
-
 
 
 class HomeView(ListView):
     model = Photo
     template_name = 'gallery.html'
     ordering = ['-post_date']
-
-
 
 def galleryView(request):
     photos = Photo.objects.all()
