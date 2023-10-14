@@ -5,16 +5,6 @@ from datetime import date
 from ckeditor.fields import RichTextField
 
 
-class Categories(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('home')
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     bio = models.TextField()
@@ -29,30 +19,6 @@ class Profile(models.Model):
         return str(self.user)
 
 
-class Post(models.Model):
-    title = models.CharField(max_length=255, null=True, blank=True)
-    title_tag =models.CharField(max_length=255, blank=True)
-    header_image = models.ImageField(null=True, blank=True,
-                                     upload_to="theblog/media/images/uploads/")
-    image_description = models.CharField(max_length=255, null=True, blank=True)
-    meta_tag =models.CharField(max_length=255, blank=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = RichTextField(blank=True, null=True)
-    post_date = models.DateField(auto_now_add=True)
-    category = models.CharField(max_length=255, default='uncategorized')
-    snippet = models.CharField(max_length=255, null=True, blank=True)
-    likes = models.ManyToManyField(User, related_name='blog_posts')
-
-    def total_likes(self):
-        return self.likes.count()
-
-    def __str__(self):
-        return self.title + ' | ' + str(self.author)
-
-    def get_absolute_url(self):
-        return reverse('home')
-
-
 class Photo(models.Model):
     image = models.ImageField(upload_to="theblog/media/images/uploads/")
     title = models.CharField(max_length=255, null=True, blank=True)
@@ -61,3 +27,6 @@ class Photo(models.Model):
     meta_tag =models.CharField(max_length=255, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     post_date = models.DateField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('gallery')
