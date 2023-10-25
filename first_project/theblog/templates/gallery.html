@@ -11,7 +11,14 @@
                 {% for photo in photos %}
                 <div class="col-md-4">
                     <div class="card my-2">
-                        <img class="image-thumbnail" src="{{photo.image.url}}">
+                        {% if item.video_file %}
+                            <video width="320" height="240" controls>
+                                <source src="{{ item.video_file.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% elif item.photo_file %}
+                            <img class="image-thumbnail" src="{{photo.image.url}}">
+                        {% endif %}
                         <div class="card-body">
                             <small> Category: Photo</small>
                         </div>

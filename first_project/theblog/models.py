@@ -20,7 +20,7 @@ class Profile(models.Model):
 
 
 class Photo(models.Model):
-    image = models.ImageField(upload_to="theblog/media/images/uploads/")
+    image = models.FileField(upload_to="theblog/media/images/uploads/")
     title = models.CharField(max_length=255, null=True, blank=True)
     title_tag =models.CharField(max_length=255, blank=True)
     image_description = models.CharField(max_length=255, null=True, blank=True)
