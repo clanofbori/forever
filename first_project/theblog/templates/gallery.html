@@ -9,27 +9,37 @@
         <div class="col-md-9">
             <div class="row">
                 {% for photo in photos %}
-                <div class="col-md-4">
-                    <div class="card my-2">
-                        {% if item.video_file %}
-                            <video width="320" height="240" controls>
-                                <source src="{{ item.video_file.url }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        {% elif item.photo_file %}
-                            <img class="image-thumbnail" src="{{photo.image.url}}">
-                        {% endif %}
-                        <div class="card-body">
-                            <small> Category: Photo</small>
-                        </div>
-                        <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
-                        {% if user.is_authenticated %}
-                            <small><a href="{% url 'delete_photo' photo.pk %}">Delete</a></small>
-                        {% endif %}
-                    </div>
-                </div>
+                    {% if photo.image %}
+                        {% with media_extension=photo.image.url|slice:'-4:' %}
+                        
+                            <div class="col-md-4">
+                                <div class="card my-2">
+                                    
+                                    {% if media_extension in valid_image_extensions %}
+                                        <img class="img-thumbnail" src="{{photo.image.url}}">
+
+                                    {% elif media_extension in valid_video_extensions %}
+                                        <video width="320" height="240" controls>
+                                            <source src="{{ media.file.url }}" class="object-fit-cover" autoplay>
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p>Unsupported media type</p>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <small> Category: </small>
+                                    </div>
+                                    <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                                    {% if user.is_authenticated %}
+                                        <small><a href="{% url 'delete_photo' photo.pk %}">Delete</a></small>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        {% endwith %}
+                    {% endif %}
                 {% empty %}
-                    <small>Gallery is Empty</small>
+                    <a class="nav-link" href="{% url 'post_photos' %}">Gallery is Empty</a>
                 {% endfor %}
             </div>
         </div>
