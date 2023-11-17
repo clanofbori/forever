@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('theblog.urls')),
     path('user_auth/', include('django.contrib.auth.urls')),
     path('user_auth/', include('user_auth.urls')),
+    path('photo_gallery/', include('photo_gallery.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
