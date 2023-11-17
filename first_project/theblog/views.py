@@ -8,12 +8,11 @@ from .constants import VALID_IMAGE_EXTENSIONS, VALID_VIDEO_EXTENSIONS
 
 class HomeView(ListView):
     model = Photo
-    template_name = 'gallery.html'
+    template_name = 'home.html'
     ordering = ['-post_date']
 
 def galleryView(request):
     photos = Photo.objects.all()
-    #context = {'photos': photos}
     return render (request, 'gallery.html', {
                     'photos': photos,
                    'valid_image_extensions': VALID_IMAGE_EXTENSIONS,
@@ -27,6 +26,10 @@ def photoView(request, pk):
                     'valid_image_extensions': VALID_IMAGE_EXTENSIONS,
                     'valid_video_extensions': VALID_VIDEO_EXTENSIONS,
                     })
+
+
+class SlideshowView(HomeView):
+    template_name = 'slideshow.html'
 
 
 class ImageUploadView(FormView):
