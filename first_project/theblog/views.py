@@ -11,6 +11,16 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-post_date']
 
+    # add a new key-value pair to the context dictionary
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_photos'] = self.photo_count()
+        return context
+
+    def photo_count(self):
+        return Photo.objects.count()
+
+
 def galleryView(request):
     photos = Photo.objects.all()
     return render (request, 'gallery.html', {

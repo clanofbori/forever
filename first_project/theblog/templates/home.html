@@ -3,29 +3,8 @@
 {% block content %}
 
   <h1>Posts</h1>
-
   <ul>
-  {% for post in object_list %}
-  <style>
-      a:link {
-        color: default;
-        background-color: transparent;
-        text-decoration: none;
-      }
-      a:hover {
-        color: black;
-        background-color: whitesmoke;
-        text-decoration: underline;
-      }
-
-      a:active {
-        color: yellow;
-        background-color: transparent;
-        text-decoration: underline;
-      }
-      </style>
-      <li></li>
-  {% endfor %}
+    <p>Total number of Photos: {{ total_photos }}</p>
   </ul>
   <ul>
     <a class="link" href="{% url 'post_photos' %}">Click to Upload Wedding Photos</a>
