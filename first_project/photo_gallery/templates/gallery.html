@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h1>Photo Gallery</h1>
+    <h1>Gallery</h1>
 
     <body>
         <div class="col-md-9">
@@ -31,7 +31,8 @@
                                     </div>
                                     <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
                                     {% if user.is_authenticated %}
-                                        <small><a href="{% url 'delete_photo' photo.pk %}">Delete</a></small>
+                                    <br><small><a class="btn btn-secondary" href="{% url 'delete_photo' photo.pk %}"
+                                        role="button">Delete</a></small><br>
                                     {% endif %}
 
                                 </div>
