@@ -61,7 +61,7 @@ ROOT_URLCONF = 'blogApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [path.join(BASE_DIR), 'slideshowreact/build'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,6 +127,7 @@ MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
     path.join(BASE_DIR, 'static'),
+    path.join(BASE_DIR, 'slideshowreact/build/static')
 )
 
 MEDIA_ROOT = path.join(BASE_DIR, 'static/')

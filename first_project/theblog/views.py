@@ -13,9 +13,7 @@ class HomeView(ListView):
 
 
 class SlideShowView(ListView):
-    template_name = 'slideshow.html'
+    template_name = 'index.html'
 
     def get(self, request, *args, **kwargs):
-        # Your view logic goes here
-        context = {'message': 'Slideshow coming soon!'}
-        return render(request, self.template_name, context)
+        return render(request, self.template_name)
