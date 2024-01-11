@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1>Home</h1>
+  <ul>
+    <p>{{ message }}</p>
+  </ul>
+  <ul>
+    <a class="link" href="{% url 'post_photos' %}">Click to Upload Wedding Photos</a>
+  </ul>
+
+{% endblock %}
