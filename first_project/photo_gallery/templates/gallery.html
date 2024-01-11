@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Photo Gallery{% endblock %}
+
+{% block content %}
+
+    <h1>Gallery</h1>
+
+    <body>
+        <div class="col-md-9">
+            <div class="row">
+                {% for photo in photos %}
+                    {% if photo.image %}
+                        {% with media_extension=photo.image.url|slice:'-4:' %}
+                        
+                            <div class="col-md-4">
+                                <div class="card my-2">
+                                    
+                                    {% if media_extension in valid_image_extensions %}
+                                        <img class="img-thumbnail" src="{{photo.image.url}}">
+
+                                    {% elif media_extension in valid_video_extensions %}
+                                        <video width="320" height="240" controls>
+                                            <source src="{{ media.file.url }}" class="object-fit-cover" autoplay>
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p>Unsupported media type</p>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <small> Category: </small>
+                                    </div>
+                                    <a href="{% url 'photo' photo.id %}" class="btn btn-outline-dark btn-sm m-1">View</a>
+                                    {% if user.is_authenticated %}
+                                    <br><small><a class="btn btn-secondary" href="{% url 'delete_photo' photo.pk %}"
+                                        role="button">Delete</a></small><br>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        {% endwith %}
+                    {% endif %}
+                {% empty %}
+                    <a class="link" href="{% url 'post_photos' %}">Click to Upload</a>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

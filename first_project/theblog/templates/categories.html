@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <h1>{{ cats }} Category</h1>
+
+    <ul>
+    {% for post in category_posts %}
+        <style>
+            a:link {
+            color: default;
+            background-color: transparent;
+            text-decoration: none;
+            }
+            a:hover {
+            color: black;
+            background-color: whitesmoke;
+            text-decoration: underline;
+            }
+    
+            a:active {
+            color: yellow;
+            background-color: transparent;
+            text-decoration: underline;
+            }
+            </style>
+            <li><a href="{% url 'article-detail' post.pk %}">
+                {{ post.title }}</a> 
+                - <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a>
+                - {{ post.author.first_name }}
+                {% if user.is_authenticated %}
+                {% if user.id == post.author.id or user.id == 1 %}
+                - <small><a href="{% url 'update_post' post.pk %}">Edit</a></small>
+                - <small><a href="{% url 'delete_post' post.pk %}" style="color:red">Delete</a> -
+                {% endif %}
+                {% endif %}
+                {{ post.post_date}} </small>
+                <br/>
+            {{ post.snippet|safe }}</li>
+    {% endfor %}
+    
+
+{% endblock %}
