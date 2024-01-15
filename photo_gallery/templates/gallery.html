@@ -16,7 +16,7 @@
                                 <div class="card my-2">
                                     
                                     {% if media_extension in valid_image_extensions %}
-                                        <img class="img-thumbnail" src="{{photo.image.url}}">
+                                        <img class="img-thumbnail" src="{% if photo.image %}{{photo.image.url}}{%endif%}" alt="Photo Image">
 
                                     {% elif media_extension in valid_video_extensions %}
                                         <video width="320" height="240" controls>
