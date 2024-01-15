@@ -140,8 +140,8 @@ STATICFILES_DIRS = (
     path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = path.join(BASE_DIR, 'static/')
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_ROOT = path.join(BASE_DIR, 'media/')
+STATIC_ROOT = BASE_DIR / 'static'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
