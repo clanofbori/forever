@@ -28,7 +28,7 @@ DEBUG = False
 
 #These settings have been set to true for production
 #current domain name and ip
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '159.65.255.47']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '159.65.255.47', 'samuelandstephanieforever.com', 'www.samuelandstephanieforever.com']
 
 
 # Application definition
@@ -76,27 +76,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogApp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'newdb',
-        'USER': 'newuser',
-        'PASSWORD': 'newpassword',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'newdb',
+            'USER': 'newuser',
+            'PASSWORD': 'newpassword',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Password validation
@@ -134,14 +134,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
+STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     path.join(BASE_DIR, 'static'),
 )
 
+# Media files
+MEDIA_URL = '/media/'
 MEDIA_ROOT = path.join(BASE_DIR, 'media')
-STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
