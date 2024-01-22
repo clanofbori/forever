@@ -8,7 +8,7 @@ class HomeView(ListView):
 
     def get(self, request, *args, **kwargs):
         # Your view logic goes here
-        context = {'message': 'Blog coming soon!'}
+        context = {'message': 'Check out the Wedding Photo Gallery!'}
         return render(request, self.template_name, context)
 
 
